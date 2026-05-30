@@ -1,5 +1,3 @@
-Here’s a **clean, professional GitHub `README.md`** for your project (Calendar / Notes + Auth + Profile system):
-
 ---
 
 # NoteSphere App
