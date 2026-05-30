@@ -2,7 +2,7 @@ Here’s a **clean, professional GitHub `README.md`** for your project (Calendar
 
 ---
 
-                                                                      NoteSphere
+NoteSphere
 
 ---
 
