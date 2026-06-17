@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import API from "../services/api";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import API from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -22,36 +23,48 @@ const Login = () => {
 
     try {
       const response = await API.post(
-        "/auth/login",
+        '/auth/login',
         formData
       );
 
+      console.log(response.data);
+
+      // SAVE TOKEN
       localStorage.setItem(
-        "token",
+        'token',
         response.data.token
       );
 
+      // SAVE USER
       localStorage.setItem(
-        "user",
+        'user',
         JSON.stringify(response.data)
       );
 
-      alert("Login Successful");
+      // VERIFY TOKEN
+      console.log(
+        'TOKEN SAVED:',
+        localStorage.getItem('token')
+      );
 
-      navigate("/dashboard");
+      alert('Login Successful');
+
+      navigate('/dashboard');
     } catch (error) {
       console.log(error);
 
       alert(
         error.response?.data?.message ||
-          "Login Failed"
+        'Login Failed'
       );
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f5f7fb]">
+
       <div className="bg-white p-10 rounded-3xl shadow-lg w-[420px]">
+
         <h1 className="text-4xl font-bold text-center mb-2">
           Welcome Back
         </h1>
@@ -91,6 +104,18 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        <p className="text-center mt-6 text-gray-500">
+          Don’t have an account?
+          <span
+            onClick={() =>
+              navigate('/register')
+            }
+            className="text-purple-600 ml-2 cursor-pointer font-semibold"
+          >
+            Register
+          </span>
+        </p>
       </div>
     </div>
   );
