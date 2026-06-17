@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
+    name: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
@@ -22,35 +22,36 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        'http://localhost:5000/api/auth/register',
+      const response = await API.post(
+        "/auth/register",
         formData
       );
 
       localStorage.setItem(
-        'token',
+        "token",
         response.data.token
       );
 
       localStorage.setItem(
-        'user',
+        "user",
         JSON.stringify(response.data)
       );
 
-      navigate('/dashboard');
+      alert("Registration Successful");
+
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
 
       alert(
         error.response?.data?.message ||
-        'Register Failed'
+          "Register Failed"
       );
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f5f3ff]">
-
       <form
         onSubmit={handleSubmit}
         className="bg-white p-10 rounded-3xl shadow-xl w-[450px]"
